@@ -1,0 +1,20 @@
+.progress-bar{
+  position: fixed;
+  height: 7px;
+  top: 0;
+  left: 0;
+  background-color: #e2b714;
+}
+
+.countdown{
+    font-size: 1.5rem;
+    color: #e2b714;
+    font-weight: 600;
+}
+
+.timer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2rem;
+}

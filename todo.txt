@@ -1,0 +1,12 @@
+-backspace
+-block errors in succession
+-styling
+-grey out timer
+-use real data
+-try again button
+-start button
+-stats
+-stop event
+-add sound
+-init and stop cursor blinking
+
