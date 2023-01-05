@@ -8,5 +8,5 @@
 -stats
 -stop event
 -add sound
--init and stop cursor blinking
+-init and stop cursor blinking 
 
