@@ -1,14 +1,8 @@
-
-
--styling
--grey out timer
--use real data
 -try again button
 -start button
 -stats
--stop event
+-graph
 -add sound
--init and stop cursor blinking 
--add times
 -when the user finishes
+-failed blank space
 

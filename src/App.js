@@ -27,6 +27,7 @@ function App() {
             hasTestStarted={hasTestStarted}
           />
 
+<p>Start typing</p>
           <SelectSeconds
             selected={seconds}
             setSeconds={setSeconds}
