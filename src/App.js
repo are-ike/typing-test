@@ -17,7 +17,8 @@ function App() {
 
   return (
     <div className="container">
-      {isTestOver && resultData.wpm !== null ? (
+      {//isTestOver && resultData.wpm !== null 
+      true? (
         <Result resultData={resultData} />
       ) : (
         <div className="test">

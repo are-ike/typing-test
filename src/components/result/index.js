@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import LineChart from "../line-chart";
 
 const Result = ({ resultData }) => {
+    useEffect(() => {
+        //localStorage.getItem('wpm-data')
+    })
   return (
     <div>
       <div>
@@ -13,6 +17,7 @@ const Result = ({ resultData }) => {
           <p>{Math.ceil(resultData.accuracy)}%</p>
         </div>
       </div>
+      <LineChart/>
     </div>
   );
 };

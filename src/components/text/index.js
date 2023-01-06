@@ -34,6 +34,8 @@ const Text = ({
     ).length;
     const accuracy = (correctCharacters / characters) * 100;
 
+    //JSON.parse(localStorage.getItem('wpm-data'))
+    
     setResultData({
       wpm,
       accuracy,
