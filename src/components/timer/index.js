@@ -40,7 +40,7 @@ const Timer = ({ setIsTestOver, seconds, hasTestStarted }) => {
         className="progress-bar"
         style={{ width: `${((seconds - secondsLeft) / seconds) * 100}%` }}
       ></div>
-      <div className={`countdown ${!hasTestStarted ? "hidden" : ""}`}>
+      <div className={`countdown ${hasTestStarted ? "remove-hidden" : ""}`}>
         0{Math.trunc(secondsLeft / 60)}:{getSecondsString(secondsLeft)}
       </div>
     </div>

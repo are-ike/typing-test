@@ -20,3 +20,8 @@ body{
   pointer-events: none;
   opacity: 0;
 }
+
+.remove-hidden{
+  pointer-events: all !important;
+  opacity: 100 !important;
+}
