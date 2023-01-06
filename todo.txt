@@ -1,5 +1,5 @@
--backspace
--block errors in succession
+
+
 -styling
 -grey out timer
 -use real data
@@ -9,4 +9,6 @@
 -stop event
 -add sound
 -init and stop cursor blinking 
+-add times
+-when the user finishes
 

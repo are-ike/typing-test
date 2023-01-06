@@ -1,53 +1,48 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 
-const SECONDS = 60;
-
-const Timer = ({ setIsTestOver }) => {
-  const [seconds, setSeconds] = useState(0);
+const Timer = ({ setIsTestOver, seconds, hasTestStarted }) => {
+  const [secondsLeft, setSecondsLeft] = useState(seconds);
 
   useEffect(() => {
+    setSecondsLeft(seconds);
+  }, [seconds]);
+
+  useEffect(() => {
+    if (!hasTestStarted) return;
+
     let interval;
-    if (seconds < SECONDS) {
+    if (secondsLeft > 0) {
       interval = setInterval(() => {
-        setSeconds((seconds) => seconds + 1);
+        setSecondsLeft((secondsLeft) => secondsLeft - 1);
       }, 1000);
+    } else {
+      setIsTestOver(true);
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [seconds]);
+  }, [secondsLeft, hasTestStarted]);
 
-  useEffect(() => {
-    if (seconds === SECONDS) {
-      setIsTestOver(true);
+  const getSecondsString = (secondsLeft) => {
+    let secondsString = `${secondsLeft % 60}`;
+
+    if (`${secondsString}`.length < 2) {
+      secondsString = `0${secondsString}`;
     }
-  }, [seconds]);
-
-  const displayCountdown = () => {
-
-      const number = SECONDS - seconds
-
-      if(number < 60){
-          let seconds = number
-
-          if(`${number}`.length < 2){
-              seconds = `0${number}`
-          }
-          return `00:${seconds}`
-      }else{
-          return `1:00`
-      }
-  }
+    return secondsString;
+  };
 
   return (
     <div className="timer">
       <div
         className="progress-bar"
-        style={{ width: `${(seconds / 60) * 100}%` }}
+        style={{ width: `${((seconds - secondsLeft) / seconds) * 100}%` }}
       ></div>
-      <div className="countdown">{displayCountdown()}</div>
+      <div className={`countdown ${!hasTestStarted ? "hidden" : ""}`}>
+        0{Math.trunc(secondsLeft / 60)}:{getSecondsString(secondsLeft)}
+      </div>
     </div>
   );
 };

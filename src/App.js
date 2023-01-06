@@ -1,21 +1,47 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Modal from "./components/modal";
+import Result from "./components/result";
 import Text from "./components/text";
 import Timer from "./components/timer";
+import { SECONDS } from "./constants";
+import SelectSeconds from "./components/select-seconds";
 
 function App() {
+  const [seconds, setSeconds] = useState(SECONDS[60]);
+  const [hasTestStarted, setHasTestStarted] = useState(false);
   const [isTestOver, setIsTestOver] = useState(false);
-  const [data, setData] = useState({
+  const [resultData, setResultData] = useState({
     wpm: null,
     accuracy: null,
   });
 
   return (
     <div className="container">
-      <Modal showModal={isTestOver && data.wpm !== null} data={data} />
-      <Timer setIsTestOver={setIsTestOver}  />
-      <Text setData={setData} isTestOver={isTestOver}/>
+      {isTestOver && resultData.wpm !== null ? (
+        <Result resultData={resultData} />
+      ) : (
+        <div className="test">
+          <Timer
+            setIsTestOver={setIsTestOver}
+            seconds={seconds}
+            hasTestStarted={hasTestStarted}
+          />
+
+          <SelectSeconds
+            selected={seconds}
+            setSeconds={setSeconds}
+            className={hasTestStarted ? "hidden" : ''}
+          />
+
+          <Text
+            setResultData={setResultData}
+            isTestOver={isTestOver}
+            seconds={seconds}
+            hasTestStarted={hasTestStarted}
+            setHasTestStarted={setHasTestStarted}
+          />
+        </div>
+      )}
     </div>
   );
 }

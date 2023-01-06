@@ -3,7 +3,20 @@
 body{
   font-family: "Roboto Mono", monospace;
 }
+
 .container{
-  height: 100vh;
+  min-height: 100vh;
   background-color: #323437;
+}
+
+.test{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+}
+
+.hidden{
+  pointer-events: none;
+  opacity: 0;
 }

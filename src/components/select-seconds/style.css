@@ -1,0 +1,21 @@
+.second:hover{
+    color: #d1d0c5;
+}
+
+.second{
+    color: #646669;
+    transition: color 300ms;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.second.active{
+    color: #e2b714;
+}
+
+.options{
+    display: flex;
+    gap: 1.2rem;
+    padding: 0 14rem;
+    margin-bottom: 1rem;
+}

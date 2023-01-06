@@ -1,9 +1,10 @@
 .progress-bar{
   position: fixed;
-  height: 7px;
+  height: 6px;
   top: 0;
   left: 0;
   background-color: #e2b714;
+  transition: width 300ms;
 }
 
 .countdown{
@@ -13,8 +14,7 @@
 }
 
 .timer{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 2rem;
+  position: absolute;
+  right: 5rem;
+  top: 1rem;
 }

@@ -13,27 +13,53 @@ const text =
 const textArray = text.split("");
 const mapping = {};
 
-const Text = ({ setData, isTestOver }) => {
+const Text = ({
+  setResultData,
+  isTestOver,
+  seconds,
+  setHasTestStarted,
+  hasTestStarted,
+}) => {
   const [characterIdx, setCharacterIdx] = useState(0);
 
-  useEffect(() => {
-    document.addEventListener("keydown", onKeyDown);
+  const calculateResult = () => {
+    const characters = Object.values(mapping).filter(
+      (stat) => stat !== status.NONE
+    ).length;
+    const words = characters / 5;
+    const wpm = words / (seconds / 60);
 
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [characterIdx]);
+    const correctCharacters = Object.values(mapping).filter(
+      (stat) => stat === status.CORRECT
+    ).length;
+    const accuracy = (correctCharacters / characters) * 100;
 
-  useEffect(() => {
-    if (!isTestOver) return;
-
-    setData({
-      wpm: 20,
-      accuracy: 66,
+    setResultData({
+      wpm,
+      accuracy,
     });
-  }, [isTestOver]);
+  };
+
+  const onBackspace = () => {
+    if (!hasTestStarted) return;
+
+    const newCharacterIdx = characterIdx - 1;
+
+    mapping[newCharacterIdx] = status.NONE;
+
+    setCharacterIdx(newCharacterIdx);
+  };
 
   const onKeyDown = (e) => {
+    //Regex to accept non-special characters
+    const regex = /^[\w\[\]` \\\/"|,.?~!@#$%\^&*()={}:;<>+'-]{1}$/;
+
+    if (e.keyCode === 8) onBackspace();
+
+    if (!regex.test(e.key)) return;
+    //Start timer once the first key is pressed
+    setHasTestStarted(true);
+
     if (e.key == textArray[characterIdx]) {
       mapping[characterIdx] = status.CORRECT;
     } else {
@@ -59,9 +85,23 @@ const Text = ({ setData, isTestOver }) => {
         className += " wrong";
       }
 
-      return <span className={className}>{char}</span>;
+      return <span key={index} className={className}>{char}</span>;
     });
   };
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [characterIdx]);
+
+  useEffect(() => {
+    if (!isTestOver) return;
+
+    calculateResult();
+  }, [isTestOver]);
 
   return (
     <div className="characters-container">
