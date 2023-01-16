@@ -34,13 +34,26 @@ const Text = ({
     ).length;
     const accuracy = (correctCharacters / characters) * 100;
 
-    //JSON.parse(localStorage.getItem('wpm-data'))
-    
-    setResultData({
+    const result = {
       wpm,
       accuracy,
-    });
+    }
+
+    storeResult(result)
+    setResultData(result);
   };
+
+  const storeResult = (newResult) => {
+    newResult.date = getDate()
+    const results = JSON.parse(localStorage.getItem("wpm-data")) ?? [];
+    results.push(newResult);
+    localStorage.setItem("wpm-data", JSON.stringify(results));
+  };
+
+  const getDate = () => {
+    const date = new Date()
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+  }
 
   const onBackspace = () => {
     if (!hasTestStarted) return;
@@ -87,7 +100,11 @@ const Text = ({
         className += " wrong";
       }
 
-      return <span key={index} className={className}>{char}</span>;
+      return (
+        <span key={index} className={className}>
+          {char}
+        </span>
+      );
     });
   };
 

@@ -7,18 +7,18 @@ Chart.register(LinearScale);
 Chart.register(PointElement);
 Chart.register(LineElement);
 
-const LineChart = () => {
+const LineChart = ({labels, data}) => {
   return (
     <div>
       <Line
       id="1"
         //options={...}
         data={{
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: labels,
           datasets: [
             {
               label: "# of Votes",
-              data: [12, 19, 3, 5, 2, 3],
+              data: data,
               borderWidth: 1,
             },
           ],

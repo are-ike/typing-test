@@ -15,35 +15,48 @@ function App() {
     accuracy: null,
   });
 
+  const reset = () => {
+    setSeconds(SECONDS[60]);
+    setHasTestStarted(false);
+    setIsTestOver(false);
+    setResultData({
+      wpm: null,
+      accuracy: null,
+    });
+  };
+
   return (
     <div className="container">
-      {//isTestOver && resultData.wpm !== null 
-      true? (
-        <Result resultData={resultData} />
-      ) : (
-        <div className="test">
-          <Timer
-            setIsTestOver={setIsTestOver}
-            seconds={seconds}
-            hasTestStarted={hasTestStarted}
-          />
+      {
+        isTestOver && resultData.wpm !== null
+        //true 
+        ? (
+          <Result resultData={resultData} resetTest={reset}/>
+        ) : (
+          <div className="test">
+            <Timer
+              setIsTestOver={setIsTestOver}
+              seconds={seconds}
+              hasTestStarted={hasTestStarted}
+            />
 
-<p>Start typing</p>
-          <SelectSeconds
-            selected={seconds}
-            setSeconds={setSeconds}
-            className={hasTestStarted ? "hidden" : ''}
-          />
+            <p>Start typing</p>
+            <SelectSeconds
+              selected={seconds}
+              setSeconds={setSeconds}
+              className={hasTestStarted ? "hidden" : ""}
+            />
 
-          <Text
-            setResultData={setResultData}
-            isTestOver={isTestOver}
-            seconds={seconds}
-            hasTestStarted={hasTestStarted}
-            setHasTestStarted={setHasTestStarted}
-          />
-        </div>
-      )}
+            <Text
+              setResultData={setResultData}
+              isTestOver={isTestOver}
+              seconds={seconds}
+              hasTestStarted={hasTestStarted}
+              setHasTestStarted={setHasTestStarted}
+            />
+          </div>
+        )
+      }
     </div>
   );
 }

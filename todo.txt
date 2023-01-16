@@ -5,4 +5,5 @@
 -add sound
 -when the user finishes
 -failed blank space
-
+-loader smooth
+-is backspace a char
