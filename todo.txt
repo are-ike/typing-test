@@ -1,9 +1,11 @@
--try again button
--start button
+-try again button -
+-start button -
 -stats
 -graph
 -add sound
--when the user finishes
+-when the user finishes -
 -failed blank space
 -loader smooth
 -is backspace a char
+-why round and ceil
+-phone typing test

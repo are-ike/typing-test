@@ -29,7 +29,7 @@ function App() {
     <div className="container">
       {
         isTestOver && resultData.wpm !== null
-        //true 
+       // true 
         ? (
           <Result resultData={resultData} resetTest={reset}/>
         ) : (

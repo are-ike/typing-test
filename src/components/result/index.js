@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LineChart from "../line-chart";
+import RestartButton from "../restart-button";
 import Tab from "../tab";
 import "./index.css";
 
@@ -18,8 +19,6 @@ const Result = ({ resetTest, resultData }) => {
     if (!results.length) resetTest();
 
     setResults(results);
-
-    console.log(results);
   }, []);
 
   const transformResultsToGraphData = () => {
@@ -31,33 +30,43 @@ const Result = ({ resetTest, resultData }) => {
   };
 
   return (
-    <div className="result-container">
+    <>
       {results.length && (
-        <>
+        <div className="results-container">
           <div>
-            <div>
-              <h6 className="heading">wpm</h6>
-              <p className="value">{Math.round(resultData.wpm)}</p>
+            <div className="flex-center">
+              <RestartButton onTrigger={resetTest}/>
             </div>
-            <div>
-              <h6 className="heading">accuracy</h6>
-              <p className="value">{Math.ceil(resultData.accuracy)}%</p>
-            </div>
-          </div>
-          <div>
-            <Tab options={tabOptions} setOption={setOption} option={option} />
-            <LineChart
-              labels={transformResultsToGraphData().dates}
-              data={
-                option === tabOptions[0].id
-                  ? transformResultsToGraphData().wpm
-                  : transformResultsToGraphData().accuracy
-              }
+            <Tab
+              options={tabOptions}
+              setOption={setOption}
+              selectedOption={option}
             />
+            <div className="results">
+              <div>
+                <div>
+                  <h6 className="heading">wpm</h6>
+                  <p className="value">{resultData.wpm ?? 0}</p>
+                </div>
+                <div>
+                  <h6 className="heading">accuracy</h6>
+                  <p className="value">{resultData.accuracy ?? 0}%</p>
+                </div>
+              </div>
+              <LineChart
+                option={option}
+                labels={transformResultsToGraphData().dates}
+                data={
+                  option === tabOptions[0].id
+                    ? transformResultsToGraphData().wpm
+                    : transformResultsToGraphData().accuracy
+                }
+              />
+            </div>
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

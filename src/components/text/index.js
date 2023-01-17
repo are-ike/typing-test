@@ -11,7 +11,7 @@ const text =
   "An excerpt in writing is a quoted passage taken from a longer work, such as a book, or poem, or an article. Whatever the subject of your writing or the type of writing you intend to compose, excerpts can be used to  readers what it is you want them to understand and remember about the subject.";
 
 const textArray = text.split("");
-const mapping = {};
+let mapping = {};
 
 const Text = ({
   setResultData,
@@ -35,25 +35,31 @@ const Text = ({
     const accuracy = (correctCharacters / characters) * 100;
 
     const result = {
-      wpm,
-      accuracy,
-    }
+      wpm: Math.round(wpm),
+      accuracy: Math.ceil(accuracy),
+    };
 
-    storeResult(result)
+    storeResult(result);
     setResultData(result);
+    reset();
+  };
+
+  const reset = () => {
+    mapping = {};
+    setCharacterIdx(0);
   };
 
   const storeResult = (newResult) => {
-    newResult.date = getDate()
+    newResult.date = getDate();
     const results = JSON.parse(localStorage.getItem("wpm-data")) ?? [];
     results.push(newResult);
     localStorage.setItem("wpm-data", JSON.stringify(results));
   };
 
   const getDate = () => {
-    const date = new Date()
-    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
-  }
+    const date = new Date();
+    return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  };
 
   const onBackspace = () => {
     if (!hasTestStarted) return;
