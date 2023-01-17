@@ -1,5 +1,39 @@
-.result-options{
-    border: solid;
-    border-radius: 2rem;
-    width: 5rem;
+.result-options {
+  border: solid;
+  border-radius: 0.4rem;
+  width: 5rem;
+  display: flex;
+  width: fit-content;
+  background-color: #d1d0c5;
+  gap: 2px;
+  margin: 0 auto 2rem auto;
+
 }
+
+.tab-option {
+  background-color: #323437;
+  padding: 1rem 2rem;
+  transition: all 300ms;
+  cursor: pointer;
+}
+
+.selected-option{
+    background-color: #d1d0c5;
+    color: #323437;
+}
+
+/* .tab-option:hover{
+    background-color: rgba(209, 208, 197, 1);
+    color: #323437;
+} */
+
+.tab-option.one {
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+}
+
+.tab-option.two {
+  border-top-right-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+}
+
