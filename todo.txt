@@ -5,3 +5,5 @@
 -is backspace a char
 -why round and ceil
 -phone typing test
+-responsive
+-fetch text

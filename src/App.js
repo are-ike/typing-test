@@ -7,7 +7,8 @@ import { SECONDS } from "./constants";
 import SelectSeconds from "./components/select-seconds";
 
 function App() {
-  const [seconds, setSeconds] = useState(SECONDS[60]);
+  const [selectedSeconds, setSelectedSeconds] = useState(SECONDS[60]);
+  const [completionTime, setCompletionTime] = useState(null);
   const [hasTestStarted, setHasTestStarted] = useState(false);
   const [isTestOver, setIsTestOver] = useState(false);
   const [resultData, setResultData] = useState({
@@ -16,7 +17,7 @@ function App() {
   });
 
   const reset = () => {
-    setSeconds(SECONDS[60]);
+    setSelectedSeconds(SECONDS[60]);
     setHasTestStarted(false);
     setIsTestOver(false);
     setResultData({
@@ -34,8 +35,10 @@ function App() {
         <div className="test">
           <Timer
             setIsTestOver={setIsTestOver}
-            seconds={seconds}
+            selectedSeconds={selectedSeconds}
             hasTestStarted={hasTestStarted}
+            isTestOver={isTestOver}
+            setCompletionTime={setCompletionTime}
           />
 
           <p className={`start-typing ${hasTestStarted ? "hidden" : ""}`}>
@@ -43,15 +46,17 @@ function App() {
           </p>
 
           <SelectSeconds
-            selected={seconds}
-            setSeconds={setSeconds}
+            selected={selectedSeconds}
+            setSelectedSeconds={setSelectedSeconds}
             className={hasTestStarted ? "hidden" : ""}
           />
 
           <Text
             setResultData={setResultData}
+            setIsTestOver={setIsTestOver}
             isTestOver={isTestOver}
-            seconds={seconds}
+            selectedSeconds={selectedSeconds}
+            completionTime={completionTime}
             hasTestStarted={hasTestStarted}
             setHasTestStarted={setHasTestStarted}
           />

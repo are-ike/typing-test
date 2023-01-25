@@ -8,7 +8,7 @@ const status = {
 };
 
 const text =
-  "An excerpt in writing is a quoted passage taken from a longer work, such as a book, or poem, or an article. Whatever the subject of your writing or the type of writing you intend to compose, excerpts can be used to  readers what it is you want them to understand and remember about the subject.";
+  "An excerpt in writing is a";
 
 const textArray = text.split("");
 let mapping = {};
@@ -16,7 +16,9 @@ let mapping = {};
 const Text = ({
   setResultData,
   isTestOver,
-  seconds,
+  setIsTestOver,
+  selectedSeconds,
+  completionTime,
   setHasTestStarted,
   hasTestStarted,
 }) => {
@@ -27,7 +29,7 @@ const Text = ({
       (stat) => stat !== status.NONE
     ).length;
     const words = characters / 5;
-    const wpm = words / (seconds / 60);
+    const wpm = words / ((completionTime ?? selectedSeconds) / 60);
 
     const correctCharacters = Object.values(mapping).filter(
       (stat) => stat === status.CORRECT
@@ -87,6 +89,10 @@ const Text = ({
       mapping[characterIdx] = status.WRONG;
     }
 
+    if(characterIdx === textArray.length - 1){
+      setIsTestOver(true)
+    }
+
     setCharacterIdx((characterIdx) => characterIdx + 1);
   };
 
@@ -123,10 +129,10 @@ const Text = ({
   }, [characterIdx]);
 
   useEffect(() => {
-    if (!isTestOver) return;
-
+    if (!isTestOver || completionTime === null) return;
+console.log(completionTime);
     calculateResult();
-  }, [isTestOver]);
+  }, [isTestOver, completionTime]);
 
   return (
     <div className="characters-container">
